@@ -1,0 +1,82 @@
+{
+  "name": "Gallery",
+  "plural": "Galleries",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "hours": {
+      "type": [
+        "object"
+      ],
+      "required": true
+    },
+    "logoUrl": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "address": {
+      "type": "embedsMany",
+      "model": "Address",
+      "property": "address",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "stats": {
+      "type": "embedsOne",
+      "model": "Stats",
+      "property": "stats",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "shippings": {
+      "type": "hasMany",
+      "model": "Shipping",
+      "foreignKey": "shippingId"
+    },
+    "notifications": {
+      "type": "hasMany",
+      "model": "notification",
+      "foreignKey": "notificationId"
+    },
+    "users": {
+      "type": "hasMany",
+      "model": "User",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

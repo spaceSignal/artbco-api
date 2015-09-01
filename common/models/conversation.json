@@ -1,0 +1,36 @@
+{
+  "name": "Conversation",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "preview": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "date",
+      "required": true
+    },
+    "subject": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "boolean",
+      "comments": ""
+    }
+  },
+  "validations": [],
+  "relations": {
+    "threads": {
+      "type": "hasMany",
+      "model": "thread",
+      "foreignKey": "threadId"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

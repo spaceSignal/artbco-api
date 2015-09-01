@@ -1,0 +1,95 @@
+{
+  "name": "user",
+  "plural": "users",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "userType": {
+      "type": "string",
+      "required": true
+    },
+    "geolocation": {
+      "type": "string"
+    },
+    "pwd": {
+      "type": "string"
+    },
+    "oauthToken": {
+      "type": "string"
+    },
+    "chgPwdOnNext": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "address": {
+      "type": "embedsOne",
+      "model": "Address",
+      "property": "address",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "avatar": {
+      "type": "embedsOne",
+      "model": "Image",
+      "property": "avatar",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "calendar": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": "eventId"
+    },
+    "user-art-stats": {
+      "type": "hasMany",
+      "model": "user-art-stats",
+      "foreignKey": "artStatsId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

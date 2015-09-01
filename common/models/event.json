@@ -1,0 +1,77 @@
+{
+  "name": "Event",
+  "plural": "Events",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "geolocation": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "image": {
+      "type": "embedsOne",
+      "model": "Image",
+      "property": "image",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "artists": {
+      "type": "hasMany",
+      "model": "Artist",
+      "foreignKey": "artistIs"
+    },
+    "stats": {
+      "type": "embedsOne",
+      "model": "Stats",
+      "property": "stats",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "tags": {
+      "type": "hasMany",
+      "model": "tag",
+      "foreignKey": "tagId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

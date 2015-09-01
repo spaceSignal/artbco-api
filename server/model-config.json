@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "sources": [
+      "../node_modules/loopback/common/models",
+      "../common/models",
+      "./models"
+    ]
+  },
+  "User": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "Image": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Video": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Address": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Stats": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "user": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Customer": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Artist": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Order": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Gallery": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Event": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Artwork": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "lease-option": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Channel": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Shipping": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "tag": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "thread": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "user-art-stats": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "notification": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Phone": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Conversation": {
+    "dataSource": "mongodb",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  }
+}

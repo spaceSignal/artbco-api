@@ -1,0 +1,39 @@
+{
+  "name": "user-art-stats",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "pinch": {
+      "type": "number"
+    },
+    "like": {
+      "type": "boolean"
+    },
+    "dislike": {
+      "type": "boolean"
+    },
+    "viewed": {
+      "type": "number"
+    },
+    "shared": {
+      "type": "number"
+    },
+    "wishlist": {
+      "type": "boolean"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "artworks": {
+      "type": "hasOne",
+      "model": "Artwork",
+      "foreignKey": "artworkId"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

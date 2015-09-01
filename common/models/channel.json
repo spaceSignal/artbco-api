@@ -1,0 +1,32 @@
+{
+  "name": "Channel",
+  "plural": "Channels",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "salesPrice": {
+      "type": "number",
+      "required": true
+    },
+    "paymentType": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "lease-options": {
+      "type": "hasMany",
+      "model": "lease-option",
+      "foreignKey": "leaseOptionId"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

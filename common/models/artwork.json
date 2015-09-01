@@ -1,0 +1,97 @@
+{
+  "name": "Artwork",
+  "plural": "Artworks",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "display": {
+      "type": "boolean"
+    },
+    "media": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "dimensions": {
+      "type": "object"
+    },
+    "geolocation": {
+      "type": "geopoint"
+    },
+    "serialNumber": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "pictures": {
+      "type": "hasMany",
+      "model": "Image",
+      "foreignKey": "pictureId"
+    },
+    "gallery": {
+      "type": "embedsOne",
+      "model": "Gallery",
+      "property": "gallery",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "artist": {
+      "type": "belongsTo",
+      "model": "Artist",
+      "foreignKey": "artistId"
+    },
+    "stats": {
+      "type": "embedsOne",
+      "model": "Stats",
+      "property": "stats",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "tags": {
+      "type": "hasMany",
+      "model": "tag",
+      "foreignKey": "tagId"
+    },
+    "channels": {
+      "type": "hasMany",
+      "model": "Channel",
+      "foreignKey": "channelId"
+    },
+    "shippings": {
+      "type": "hasMany",
+      "model": "Shipping",
+      "foreignKey": "shippingId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

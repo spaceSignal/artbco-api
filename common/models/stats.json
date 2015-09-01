@@ -1,0 +1,46 @@
+{
+  "name": "Stats",
+  "plural": "Stats",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "likes": {
+      "type": "number"
+    },
+    "dislikes": {
+      "type": "number"
+    },
+    "viewed": {
+      "type": "number"
+    },
+    "shared": {
+      "type": "number"
+    },
+    "pinch": {
+      "type": "number"
+    },
+    "wishlist": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

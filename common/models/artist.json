@@ -1,0 +1,86 @@
+{
+  "name": "Artist",
+  "plural": "Artists",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "bio": {
+      "type": "string",
+      "required": true
+    },
+    "nickname": {
+      "type": "string"
+    },
+    "statement": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "videos": {
+      "type": "hasMany",
+      "model": "Video",
+      "foreignKey": "videoId"
+    },
+    "artworks": {
+      "type": "hasMany",
+      "model": "Artwork",
+      "foreignKey": "artworkId"
+    },
+    "address": {
+      "type": "embedsOne",
+      "model": "Address",
+      "property": "address",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "images": {
+      "type": "hasMany",
+      "model": "Image",
+      "foreignKey": "imageId"
+    },
+    "stats": {
+      "type": "embedsOne",
+      "model": "Stats",
+      "property": "stats",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

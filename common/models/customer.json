@@ -1,0 +1,48 @@
+{
+  "name": "Customer",
+  "plural": "Customers",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "paymentInfo": {
+      "type": "object"
+    },
+    "terms1Accepted": {
+      "type": "boolean"
+    },
+    "terms2Accepted": {
+      "type": "boolean"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "wishList": {
+      "type": "hasMany",
+      "model": "Artwork",
+      "foreignKey": "artworkId"
+    },
+    "orders": {
+      "type": "hasMany",
+      "model": "Order",
+      "foreignKey": "orderId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

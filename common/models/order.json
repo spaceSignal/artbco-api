@@ -1,0 +1,71 @@
+{
+  "name": "Order",
+  "plural": "Orders",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "total": {
+      "type": "number",
+      "required": true
+    },
+    "balance": {
+      "type": "number",
+      "required": true
+    },
+    "status": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "payments": {
+      "type": [
+        "object"
+      ]
+    },
+    "dateOrder": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "items": {
+      "type": "hasMany",
+      "model": "Artwork",
+      "foreignKey": "artworkId"
+    },
+    "addresses": {
+      "type": "hasOne",
+      "model": "Address",
+      "foreignKey": "addressId"
+    },
+    "lease-options": {
+      "type": "hasOne",
+      "model": "lease-option",
+      "foreignKey": "leaseOptionId"
+    },
+    "shippings": {
+      "type": "hasOne",
+      "model": "Shipping",
+      "foreignKey": "shippingId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

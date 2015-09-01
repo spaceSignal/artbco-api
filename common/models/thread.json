@@ -1,0 +1,29 @@
+{
+  "name": "thread",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "documentUrl": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string",
+      "required": false
+    },
+    "accepted": {
+      "type": "boolean"
+    },
+    "timestamp": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
