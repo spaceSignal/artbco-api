@@ -9,12 +9,12 @@
       mongodb: {
         name: 'mongodb',
         connector: 'mongodb',
-        host: process.env.host,
-        port: process.env.port,
-        url: process.env.url,
-        database: process.env.database,
-        password: process.env.password,
-        user: process.env.user
+        host: process.env.mongo_host,
+        port: process.env.mongo_port,
+        url: process.env.mongo_url,
+        database: process.env.mongo_database,
+        password: process.env.mongo_password,
+        user: process.env.mongo_user
       }
     };
 
