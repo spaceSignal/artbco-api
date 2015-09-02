@@ -127,9 +127,5 @@
     "public": true,
     "$promise": {},
     "$resolved": true
-  },
-  "collection": {
-    "dataSource": "mongodb",
-    "public": true
   }
 }
