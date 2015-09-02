@@ -75,6 +75,11 @@
       "type": "hasMany",
       "model": "user-art-stats",
       "foreignKey": "artStatsId"
+    },
+    "collections": {
+      "type": "hasOne",
+      "model": "collection",
+      "foreignKey": "collectionId"
     }
   },
   "acls": [
