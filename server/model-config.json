@@ -127,5 +127,13 @@
     "public": true,
     "$promise": {},
     "$resolved": true
+  },
+  "collection": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "wishlist": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }
