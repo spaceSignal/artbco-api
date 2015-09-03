@@ -66,11 +66,6 @@
         "forceId": false
       }
     },
-    "calendar": {
-      "type": "hasMany",
-      "model": "Event",
-      "foreignKey": "eventId"
-    },
     "user-art-stats": {
       "type": "hasMany",
       "model": "user-art-stats",
