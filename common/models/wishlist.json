@@ -1,0 +1,40 @@
+{
+  "name": "wishlist",
+  "plural": "wishlists",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "artworkName": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "number"
+    },
+    "artists": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": "wishlistId"
+    },
+    "artworks": {
+      "type": "hasOne",
+      "model": "Artwork",
+      "foreignKey": "artworkId"
+    }
+  },
+  "acls": [],
+  "methods": []
+}
