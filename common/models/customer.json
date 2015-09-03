@@ -18,18 +18,7 @@
     }
   },
   "validations": [],
-  "relations": {
-    "wishList": {
-      "type": "hasMany",
-      "model": "Artwork",
-      "foreignKey": "artworkId"
-    },
-    "orders": {
-      "type": "hasMany",
-      "model": "Order",
-      "foreignKey": "orderId"
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "accessType": "*",
