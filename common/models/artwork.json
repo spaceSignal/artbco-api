@@ -23,9 +23,15 @@
     "status": {
       "type": "string"
     },
-    "dimensions": {
-      "type": "object"
+    "width": {
+      "type": "number"
     },
+    "length": {
+      "type": "number"
+    },
+    "depth": {
+      "type": "number"
+    }
     "geolocation": {
       "type": "geopoint"
     },
