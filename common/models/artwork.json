@@ -24,14 +24,13 @@
       "type": "string"
     },
     "width": {
-      "type": "number"
-    },
-    "length": {
-      "type": "number"
+      "type": "number",
+      "comments": "width X length X depth"
     },
     "depth": {
-      "type": "number"
-    }
+      "type": "number",
+      "comments": "width X length X depth"
+    },
     "geolocation": {
       "type": "geopoint"
     },
@@ -40,6 +39,10 @@
     },
     "edition": {
       "type": "number"
+    },
+    "length": {
+      "type": "number",
+      "comments": "width X length X depth"
     }
   },
   "validations": [],
