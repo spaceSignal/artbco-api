@@ -71,10 +71,10 @@
       "model": "user-art-stats",
       "foreignKey": "artStatsId"
     },
-    "collections": {
+    "user-collections": {
       "type": "hasOne",
-      "model": "collection",
-      "foreignKey": "collectionId"
+      "model": "user-collection",
+      "foreignKey": "user-collectionId"
     }
   },
   "acls": [

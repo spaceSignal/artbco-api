@@ -128,11 +128,15 @@
     "$promise": {},
     "$resolved": true
   },
-  "collection": {
+  "wishlist": {
     "dataSource": "mongodb",
     "public": true
   },
-  "wishlist": {
+  "user-collection": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "global-collection": {
     "dataSource": "mongodb",
     "public": true
   }

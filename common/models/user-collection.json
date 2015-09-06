@@ -1,0 +1,30 @@
+{
+  "name": "user-collection",
+  "plural": "user-collections",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "recommended": {
+      "type": [
+        "object"
+      ]
+    },
+    "wishlist": {
+      "type": [
+        "object"
+      ]
+    },
+    "nearBy": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
