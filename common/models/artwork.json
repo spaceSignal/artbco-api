@@ -37,6 +37,9 @@
     },
     "serialNumber": {
       "type": "string"
+    },
+    "edition": {
+      "type": "number"
     }
   },
   "validations": [],
