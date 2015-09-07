@@ -10,6 +10,13 @@
     "caption": {
       "type": "string"
     },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "size": {
+      "type": "string"
+    },
     "url": {
       "type": "string",
       "required": true
