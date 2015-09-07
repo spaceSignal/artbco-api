@@ -8,17 +8,13 @@
   },
   "properties": {
     "caption": {
-      "type": "string",
-      "required": true
-    },
-    "src": {
       "type": "string"
     },
-    "cdn": {
-      "type": "object"
+    "url": {
+      "type": "string"
     },
     "principal": {
-      "type": "string"
+      "type": "boolean"
     }
   },
   "validations": [],

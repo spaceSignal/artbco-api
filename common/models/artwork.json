@@ -47,10 +47,10 @@
   },
   "validations": [],
   "relations": {
-    "pictures": {
+    "images": {
       "type": "hasMany",
       "model": "Image",
-      "foreignKey": "pictureId"
+      "foreignKey": "imageId"
     },
     "artist": {
       "type": "belongsTo",
@@ -63,9 +63,13 @@
       "foreignKey": "tagId"
     },
     "channels": {
-      "type": "hasMany",
+      "type": "embedsMany",
       "model": "Channel",
-      "foreignKey": "channelId"
+      "property": "channel",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     },
     "shippings": {
       "type": "hasMany",
@@ -76,6 +80,15 @@
       "type": "belongsTo",
       "model": "Gallery",
       "foreignKey": "galleryId"
+    },
+    "stats": {
+      "type": "embedsOne",
+      "model": "Stats",
+      "property": "stats",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     }
   },
   "acls": [
