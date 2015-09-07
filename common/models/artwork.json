@@ -40,11 +40,15 @@
       "type": "geopoint"
     },
     "serialNumber": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "edition": {
-      "type": "number"
+      "type": "number",
+      "required": true
+    },
+    "editionCount": {
+      "type": "number",
+      "required": true
     },
     "length": {
       "type": "number",
