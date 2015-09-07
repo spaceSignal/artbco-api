@@ -8,10 +8,12 @@
   },
   "properties": {
     "display": {
-      "type": "boolean"
+      "type": "boolean",
+      "required": true
     },
     "media": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "name": {
       "type": "string",
@@ -21,27 +23,32 @@
       "type": "string"
     },
     "status": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "width": {
       "type": "number",
+      "required": true,
       "comments": "width X length X depth"
     },
     "depth": {
       "type": "number",
+      "required": true,
       "comments": "width X length X depth"
     },
     "geolocation": {
       "type": "geopoint"
     },
     "serialNumber": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "edition": {
       "type": "number"
     },
     "length": {
       "type": "number",
+      "required": true,
       "comments": "width X length X depth"
     }
   },

@@ -1,12 +1,6 @@
 module.exports = function (Artwork) {
-    Artwork.validatesPresenceOf(
-        'name'
-    );
 
-    Artwork.validatesLengthOf('name', {
-        min: 5,
-        message: {
-            min: 'name is too short'
-        }
-    });
+Artwork.validatesUniquenessOf('serialNumber', {message: 'the serial number is not unique'});
+Artwork.validatesInclusionOf('status', {in: ['status1', 'status2', 'status3']});
+
 };
