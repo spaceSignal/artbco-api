@@ -9,29 +9,29 @@
   "properties": {
     "addressLine": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "addressLine2": {
       "type": "string"
     },
     "city": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "state": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "zipcode": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "addressType": {
       "type": "string"
     },
     "country": {
       "type": "string",
-      "required": true
+      "required": false
     }
   },
   "validations": [],
@@ -43,12 +43,6 @@
     }
   },
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
     {
       "accessType": "*",
       "principalType": "ROLE",

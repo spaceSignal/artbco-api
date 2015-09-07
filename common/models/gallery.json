@@ -15,7 +15,7 @@
       "type": [
         "object"
       ],
-      "required": true
+      "required": false
     },
     "logoUrl": {
       "type": "string"
@@ -65,12 +65,6 @@
     }
   },
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
     {
       "accessType": "*",
       "principalType": "ROLE",

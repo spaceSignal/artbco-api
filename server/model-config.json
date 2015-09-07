@@ -28,7 +28,7 @@
   },
   "Image": {
     "dataSource": "mongodb",
-    "public": true,
+    "public": false,
     "$promise": {},
     "$resolved": true
   },
@@ -44,7 +44,7 @@
   },
   "Stats": {
     "dataSource": "mongodb",
-    "public": true,
+    "public": false,
     "$promise": {},
     "$resolved": true
   },
@@ -127,5 +127,17 @@
     "public": true,
     "$promise": {},
     "$resolved": true
+  },
+  "wishlist": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "user-collection": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "global-collection": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

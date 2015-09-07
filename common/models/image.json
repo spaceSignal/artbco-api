@@ -8,28 +8,20 @@
   },
   "properties": {
     "caption": {
+      "type": "string"
+    },
+    "url": {
       "type": "string",
       "required": true
     },
-    "src": {
-      "type": "string"
-    },
-    "cdn": {
-      "type": "object"
-    },
     "principal": {
-      "type": "string"
+      "type": "boolean",
+      "required": true
     }
   },
   "validations": [],
   "relations": {},
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
     {
       "accessType": "*",
       "principalType": "ROLE",

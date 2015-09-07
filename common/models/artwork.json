@@ -23,36 +23,63 @@
     "status": {
       "type": "string"
     },
-    "dimensions": {
-      "type": "object"
+    "width": {
+      "type": "number",
+      "comments": "width X length X depth"
+    },
+    "depth": {
+      "type": "number",
+      "comments": "width X length X depth"
     },
     "geolocation": {
       "type": "geopoint"
     },
     "serialNumber": {
       "type": "string"
+    },
+    "edition": {
+      "type": "number"
+    },
+    "length": {
+      "type": "number",
+      "comments": "width X length X depth"
     }
   },
   "validations": [],
   "relations": {
-    "pictures": {
+    "images": {
       "type": "hasMany",
       "model": "Image",
-      "foreignKey": "pictureId"
-    },
-    "gallery": {
-      "type": "embedsOne",
-      "model": "Gallery",
-      "property": "gallery",
-      "options": {
-        "validate": true,
-        "forceId": false
-      }
+      "foreignKey": "imageId"
     },
     "artist": {
       "type": "belongsTo",
       "model": "Artist",
       "foreignKey": "artistId"
+    },
+    "tags": {
+      "type": "hasMany",
+      "model": "tag",
+      "foreignKey": "tagId"
+    },
+    "channels": {
+      "type": "embedsMany",
+      "model": "Channel",
+      "property": "channel",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "shippings": {
+      "type": "hasMany",
+      "model": "Shipping",
+      "foreignKey": "shippingId"
+    },
+    "gallery": {
+      "type": "belongsTo",
+      "model": "Gallery",
+      "foreignKey": "galleryId"
     },
     "stats": {
       "type": "embedsOne",
@@ -62,30 +89,9 @@
         "validate": true,
         "forceId": false
       }
-    },
-    "tags": {
-      "type": "hasMany",
-      "model": "tag",
-      "foreignKey": "tagId"
-    },
-    "channels": {
-      "type": "hasMany",
-      "model": "Channel",
-      "foreignKey": "channelId"
-    },
-    "shippings": {
-      "type": "hasMany",
-      "model": "Shipping",
-      "foreignKey": "shippingId"
     }
   },
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
     {
       "accessType": "*",
       "principalType": "ROLE",

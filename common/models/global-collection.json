@@ -1,0 +1,30 @@
+{
+  "name": "global-collection",
+  "plural": "global-collections",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "featuredArtists": {
+      "type": [
+        "object"
+      ]
+    },
+    "trending": {
+      "type": [
+        "object"
+      ]
+    },
+    "newlyCurated": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

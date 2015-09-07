@@ -8,8 +8,7 @@
   },
   "properties": {
     "bio": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "nickname": {
       "type": "string"
@@ -18,12 +17,10 @@
       "type": "string"
     },
     "firstName": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "lastName": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "email": {
       "type": "string"
@@ -69,12 +66,6 @@
     }
   },
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
     {
       "accessType": "*",
       "principalType": "ROLE",
