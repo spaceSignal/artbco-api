@@ -52,28 +52,10 @@
       "model": "Image",
       "foreignKey": "pictureId"
     },
-    "gallery": {
-      "type": "embedsOne",
-      "model": "Gallery",
-      "property": "gallery",
-      "options": {
-        "validate": true,
-        "forceId": false
-      }
-    },
     "artist": {
       "type": "belongsTo",
       "model": "Artist",
       "foreignKey": "artistId"
-    },
-    "stats": {
-      "type": "embedsOne",
-      "model": "Stats",
-      "property": "stats",
-      "options": {
-        "validate": true,
-        "forceId": false
-      }
     },
     "tags": {
       "type": "hasMany",
@@ -89,6 +71,11 @@
       "type": "hasMany",
       "model": "Shipping",
       "foreignKey": "shippingId"
+    },
+    "gallery": {
+      "type": "belongsTo",
+      "model": "Gallery",
+      "foreignKey": "galleryId"
     }
   },
   "acls": [
