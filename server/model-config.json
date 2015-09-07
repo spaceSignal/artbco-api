@@ -28,7 +28,7 @@
   },
   "Image": {
     "dataSource": "mongodb",
-    "public": false,
+    "public": true,
     "$promise": {},
     "$resolved": true
   },
