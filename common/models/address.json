@@ -9,29 +9,30 @@
   "properties": {
     "addressLine": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "addressLine2": {
       "type": "string"
     },
     "city": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "state": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "zipcode": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "addressType": {
-      "type": "string"
+      "type": "string",
+      "comments": "i need validate types of address"
     },
     "country": {
       "type": "string",
-      "required": false
+      "required": true
     }
   },
   "validations": [],

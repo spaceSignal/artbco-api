@@ -9,14 +9,15 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "salesPrice": {
       "type": "number",
-      "required": false
+      "required": true
     },
     "paymentType": {
-      "type": "string"
+      "type": "string",
+      "comments": "i need validate types of Payments"
     }
   },
   "validations": [],

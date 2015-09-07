@@ -22,10 +22,6 @@
     },
     "email": {
       "type": "string"
-    },
-    "address": {
-      "type": "string",
-      "required": false
     }
   },
   "validations": [],
