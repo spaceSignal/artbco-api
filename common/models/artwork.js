@@ -1,8 +1,6 @@
 module.exports = function (Artwork) {
     Artwork.validatesPresenceOf(
-        'name',
-        'salesPrice',
-        'leasePrice'
+        'name'
     );
 
     Artwork.validatesLengthOf('name', {
@@ -10,16 +8,5 @@ module.exports = function (Artwork) {
         message: {
             min: 'name is too short'
         }
-    });
-
-    var validStatuses = ['sale', 'lease', 'sold', 'leased', 'unkwon'];
-    var validShapes = ['square', 'circle', 'pentagon'];
-
-    Artwork.validatesInclusionOf('status', {
-        in: validStatuses
-    });
-
-    Artwork.validatesInclusionOf('shape', {
-        in: validShapes
     });
 };

@@ -9,11 +9,11 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "salesPrice": {
       "type": "number",
-      "required": true
+      "required": false
     },
     "paymentType": {
       "type": "string"
