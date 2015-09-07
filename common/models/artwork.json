@@ -46,6 +46,10 @@
       "type": "number",
       "required": true
     },
+    "editionCount": {
+      "type": "number",
+      "required": true
+    },
     "length": {
       "type": "number",
       "required": true,
