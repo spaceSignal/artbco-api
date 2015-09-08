@@ -7,27 +7,24 @@
     "validateUpsert": true
   },
   "properties": {
-    "name": {
-      "type": "string",
-      "required": true
+    "app": {
+      "type": "boolean",
+      "required": true,
+      "comments": "default value is false"
     },
-    "salesPrice": {
-      "type": "number",
-      "required": true
+    "ecom": {
+      "type": "boolean",
+      "required": true,
+      "comments": "default value is false"
     },
-    "paymentType": {
-      "type": "string",
-      "comments": "i need validate types of Payments"
+    "mini": {
+      "type": "boolean",
+      "required": true,
+      "comments": "default value is false"
     }
   },
   "validations": [],
-  "relations": {
-    "lease-options": {
-      "type": "hasMany",
-      "model": "lease-option",
-      "foreignKey": "leaseOptionId"
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": []
 }
