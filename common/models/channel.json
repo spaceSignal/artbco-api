@@ -19,7 +19,7 @@
     },
     "mini": {
       "type": "boolean",
-      "required": true
+      "required": true,
       "comments": "default value is false"
     }
   },
