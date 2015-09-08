@@ -80,7 +80,7 @@
       "foreignKey": "tagId"
     },
     "channels": {
-      "type": "embedsMany",
+      "type": "embedsOne",
       "model": "Channel",
       "property": "channel",
       "options": {
