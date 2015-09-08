@@ -54,6 +54,10 @@
       "type": "number",
       "required": true,
       "comments": "width X length X depth"
+    },
+    "salesPrice": {
+      "type": "number",
+      "required": true
     }
   },
   "validations": [],
