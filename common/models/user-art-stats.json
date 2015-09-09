@@ -31,7 +31,7 @@
     "artworks": {
       "type": "hasOne",
       "model": "Artwork",
-      "foreignKey": "artworkId"
+      "foreignKey": "uasId"
     }
   },
   "acls": [],

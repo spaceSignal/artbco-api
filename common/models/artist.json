@@ -62,7 +62,12 @@
     "artworks": {
       "type": "hasMany",
       "model": "Artwork",
-      "foreignKey": "artworkId"
+      "foreignKey": "artistId"
+    },
+    "gallery": {
+      "type": "hasMany",
+      "model": "Gallery",
+      "foreignKey": "artistId"
     }
   },
   "acls": [
