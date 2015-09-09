@@ -36,11 +36,6 @@
       "model": "Video",
       "foreignKey": "videoId"
     },
-    "artworks": {
-      "type": "hasMany",
-      "model": "Artwork",
-      "foreignKey": "artworkId"
-    },
     "address": {
       "type": "embedsOne",
       "model": "Address",
@@ -63,6 +58,11 @@
         "validate": true,
         "forceId": false
       }
+    },
+    "artworks": {
+      "type": "hasMany",
+      "model": "Artwork",
+      "foreignKey": "artworkId"
     }
   },
   "acls": [

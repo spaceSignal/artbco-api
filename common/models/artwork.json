@@ -70,7 +70,7 @@
       "foreignKey": "imageId"
     },
     "artist": {
-      "type": "belongsTo",
+      "type": "hasOne",
       "model": "Artist",
       "foreignKey": "artistId"
     },
