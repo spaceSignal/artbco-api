@@ -70,9 +70,8 @@
       "foreignKey": "imageId"
     },
     "artist": {
-      "type": "hasOne",
-      "model": "Artist",
-      "foreignKey": "artworkId"
+      "type": "belongsTo",
+      "model": "Artist"
     },
     "tags": {
       "type": "hasMany",

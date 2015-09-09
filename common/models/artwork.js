@@ -38,7 +38,7 @@ var callback = undefined;
         } else if (typeof imgs == 'undefined') {
 
             // images
-            Artwork.getImages(artworkId);
+            Artwork.getImages(artworkId, 's3');
 
         } else {
 
@@ -71,13 +71,10 @@ var callback = undefined;
         });
     };
 
- //   Artwork.getImages = function (artworkId, size) {
-    Artwork.getImages = function (artworkId) {
-/*        var Images = Artwork.app.models.Image;
+   Artwork.getImages = function (artworkId, size) {
+        var Images = Artwork.app.models.Image;
         filter = { "where": {"imageId":artworkId, "size":size} };
-*/
- //       Images.find( filter, function (err, instance){
-        Artwork.find({include: 'images'}, function (err, instance){
+        Images.find( filter, function (err, instance){
             // error condition... abort.
             if (err) {
                 console.log(err.message);
@@ -91,4 +88,6 @@ var callback = undefined;
         });
 
     };
+
+
 };
