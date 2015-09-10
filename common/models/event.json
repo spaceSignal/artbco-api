@@ -42,7 +42,7 @@
     "artists": {
       "type": "hasMany",
       "model": "Artist",
-      "foreignKey": "artistIs"
+      "foreignKey": "artistId"
     },
     "stats": {
       "type": "embedsOne",

@@ -32,25 +32,33 @@
   },
   "validations": [],
   "relations": {
-    "items": {
+    "artwork": {
       "type": "hasMany",
       "model": "Artwork",
-      "foreignKey": "artworkId"
+      "foreignKey": "orderId"
     },
     "addresses": {
       "type": "hasOne",
       "model": "Address",
       "foreignKey": "addressId"
     },
-    "lease-options": {
-      "type": "hasOne",
+    "lease-option": {
+      "type": "embedsOne",
       "model": "lease-option",
-      "foreignKey": "leaseOptionId"
+      "property": "lease-option",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     },
-    "shippings": {
-      "type": "hasOne",
-      "model": "Shipping",
-      "foreignKey": "shippingId"
+    "shipping": {
+      "type": "embedsOne",
+      "model": "shipping",
+      "property": "shipping",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     },
     "customer": {
       "type": "belongsTo",

@@ -32,7 +32,7 @@
     "artworks": {
       "type": "hasOne",
       "model": "Artwork",
-      "foreignKey": "artworkId"
+      "foreignKey": "wislistId"
     }
   },
   "acls": [],

@@ -44,16 +44,22 @@
     },
     "edition": {
       "type": "number",
-      "required": true
+      "required": true,
+      "comments": "default 1"
     },
     "editionCount": {
       "type": "number",
-      "required": true
+      "required": true,
+      "comments": "default 1"
     },
     "length": {
       "type": "number",
       "required": true,
       "comments": "width X length X depth"
+    },
+    "salesPrice": {
+      "type": "number",
+      "required": true
     }
   },
   "validations": [],
@@ -65,8 +71,7 @@
     },
     "artist": {
       "type": "belongsTo",
-      "model": "Artist",
-      "foreignKey": "artistId"
+      "model": "Artist"
     },
     "tags": {
       "type": "hasMany",
@@ -74,7 +79,7 @@
       "foreignKey": "tagId"
     },
     "channels": {
-      "type": "embedsMany",
+      "type": "embedsOne",
       "model": "Channel",
       "property": "channel",
       "options": {
@@ -89,8 +94,7 @@
     },
     "gallery": {
       "type": "belongsTo",
-      "model": "Gallery",
-      "foreignKey": "galleryId"
+      "model": "Gallery"
     },
     "stats": {
       "type": "embedsOne",
@@ -100,6 +104,11 @@
         "validate": true,
         "forceId": false
       }
+    },
+    "lease-options": {
+      "type": "hasMany",
+      "model": "lease-option",
+      "foreignKey": "leaseOptionId"
     }
   },
   "acls": [

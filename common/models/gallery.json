@@ -58,6 +58,11 @@
       "type": "hasMany",
       "model": "User",
       "foreignKey": "userId"
+    },
+    "artworks": {
+      "type": "hasMany",
+      "model": "Artwork",
+      "foreignKey": "galleryId"
     }
   },
   "acls": [

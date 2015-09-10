@@ -74,7 +74,7 @@
     "user-collections": {
       "type": "hasOne",
       "model": "user-collection",
-      "foreignKey": "user-collectionId"
+      "foreignKey": "userId"
     }
   },
   "acls": [
