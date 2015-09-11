@@ -1,6 +1,7 @@
 {
-  "name": "Wishlist",
-  "base": "Model",
+  "name": "FeaturedArtist",
+  "base": "PersistedModel",
+  "plural": "FeaturedArtist",
   "idInjection": true,
   "options": {
     "validateUpsert": true
