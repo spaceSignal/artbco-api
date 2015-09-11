@@ -12,7 +12,8 @@ module.exports = function (Order) {
             'cancelled',
             'refunded',
             'hold',
-            'settled'
+            'settled',
+            'cart'
         ]
     });
 
