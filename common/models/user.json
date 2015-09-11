@@ -89,6 +89,11 @@
       "type": "hasOne",
       "model": "Customer",
       "foreignKey": "userId"
+    },
+    "conversations": {
+      "type": "hasMany",
+      "model": "Conversation",
+      "foreignKey": "conversationId"
     }
   },
   "acls": [
