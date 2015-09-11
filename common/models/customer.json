@@ -33,6 +33,15 @@
       "type": "hasMany",
       "model": "Address",
       "foreignKey": "addressId"
+    },
+    "address": {
+      "type": "embedsOne",
+      "model": "Address",
+      "property": "defaultAddress",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     }
   },
   "acls": [
