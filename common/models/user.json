@@ -75,6 +75,15 @@
       "type": "hasOne",
       "model": "user-collection",
       "foreignKey": "userId"
+    },
+    "notifications": {
+      "type": "embedsOne",
+      "model": "notification",
+      "property": "notifications",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     }
   },
   "acls": [

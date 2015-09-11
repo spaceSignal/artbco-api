@@ -8,11 +8,10 @@
   },
   "properties": {
     "type": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "counter": {
-      "type": "string"
+      "type": "number"
     }
   },
   "validations": [],
