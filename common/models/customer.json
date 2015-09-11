@@ -22,7 +22,7 @@
     "orders": {
       "type": "hasMany",
       "model": "Order",
-      "foreignKey": "ordersId"
+      "foreignKey": "customerId"
     },
     "user": {
       "type": "belongsTo",

@@ -63,7 +63,7 @@
     "customer": {
       "type": "belongsTo",
       "model": "Customer",
-      "foreignKey": "orderId"
+      "foreignKey": "customerId"
     }
   },
   "acls": [
