@@ -1,6 +1,7 @@
 {
-  "name": "Wishlist",
-  "base": "Model",
+  "name": "Trending",
+  "base": "PersistedModel",
+  "plural": "Trending",
   "idInjection": true,
   "options": {
     "validateUpsert": true

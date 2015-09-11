@@ -1,6 +1,7 @@
 {
-  "name": "Wishlist",
-  "base": "Model",
+  "name": "NearBy",
+  "base": "PersistedModel",
+  "plural": "NearBy",
   "idInjection": true,
   "options": {
     "validateUpsert": true
