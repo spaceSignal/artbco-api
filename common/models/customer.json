@@ -23,6 +23,11 @@
       "type": "hasMany",
       "model": "Order",
       "foreignKey": "ordersId"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
     }
   },
   "acls": [

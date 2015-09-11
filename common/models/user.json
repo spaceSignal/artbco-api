@@ -84,6 +84,11 @@
         "validate": true,
         "forceId": false
       }
+    },
+    "customers": {
+      "type": "hasOne",
+      "model": "Customer",
+      "foreignKey": "userId"
     }
   },
   "acls": [
