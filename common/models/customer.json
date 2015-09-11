@@ -28,6 +28,11 @@
       "type": "belongsTo",
       "model": "user",
       "foreignKey": "userId"
+    },
+    "addresses": {
+      "type": "hasMany",
+      "model": "Address",
+      "foreignKey": "addressId"
     }
   },
   "acls": [
