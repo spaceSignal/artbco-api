@@ -1,7 +1,7 @@
 {
   "name": "FeaturedArtist",
-  "base": "PersistedModel",
   "plural": "FeaturedArtist",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true

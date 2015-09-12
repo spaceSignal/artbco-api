@@ -23,9 +23,6 @@
     },
     "endDate": {
       "type": "date"
-    },
-    "geolocation": {
-      "type": "string"
     }
   },
   "validations": [],
@@ -34,6 +31,15 @@
       "type": "embedsOne",
       "model": "Image",
       "property": "image",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "address": {
+      "type": "embedsOne",
+      "model": "Address",
+      "property": "address",
       "options": {
         "validate": true,
         "forceId": false

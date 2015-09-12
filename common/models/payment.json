@@ -1,0 +1,57 @@
+{
+  "name": "Payment",
+  "plural": "Payments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "cardId": {
+      "type": "string",
+      "required": true
+    },
+    "cId": {
+      "type": "string",
+      "required": true
+    },
+    "object": {
+      "type": "string"
+    },
+    "last4": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "funding": {
+      "type": "string"
+    },
+    "exp_month": {
+      "type": "number"
+    },
+    "exp_year": {
+      "type": "number"
+    },
+    "exp_month": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "address": {
+      "type": "embedsOne",
+      "model": "Address",
+      "property": "cardAddress",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
+  "acls": [],
+  "methods": []
+}

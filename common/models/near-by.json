@@ -1,7 +1,7 @@
 {
   "name": "NearBy",
-  "base": "PersistedModel",
   "plural": "NearBy",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true

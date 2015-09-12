@@ -36,9 +36,6 @@
       "required": true,
       "comments": "width X length X depth"
     },
-    "geolocation": {
-      "type": "geopoint"
-    },
     "serialNumber": {
       "type": "string"
     },
@@ -77,6 +74,15 @@
       "type": "hasMany",
       "model": "tag",
       "foreignKey": "tagId"
+    },
+    "address": {
+      "type": "embedsOne",
+      "model": "Address",
+      "property": "currentAddress",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     },
     "channels": {
       "type": "embedsOne",
