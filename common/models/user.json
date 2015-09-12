@@ -31,7 +31,7 @@
       "required": true
     },
     "geolocation": {
-      "type": "string"
+      "type": "geopoint"
     },
     "pwd": {
       "type": "string"
@@ -71,10 +71,39 @@
       "model": "user-art-stats",
       "foreignKey": "artStatsId"
     },
-    "user-collections": {
-      "type": "hasOne",
-      "model": "user-collection",
+    "Recommended": {
+      "type": "hasMany",
+      "model": "Recommended",
       "foreignKey": "userId"
+    },
+    "NearBy": {
+      "type": "hasMany",
+      "model": "NearBy",
+      "foreignKey": "userId"
+    },
+    "Wishlist": {
+      "type": "hasMany",
+      "model": "Wishlist",
+      "foreignKey": "userId"
+    },
+    "notifications": {
+      "type": "embedsOne",
+      "model": "notification",
+      "property": "notifications",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "customers": {
+      "type": "hasOne",
+      "model": "Customer",
+      "foreignKey": "userId"
+    },
+    "conversations": {
+      "type": "hasMany",
+      "model": "Conversation",
+      "foreignKey": "conversationId"
     }
   },
   "acls": [

@@ -1,21 +1,25 @@
 module.exports = function(Collection) {
 
   // hold
-  var uCollection = undefined;
-  var gCollection = undefined;
-  var callback = undefined;
+  var cFeaturedArtist = undefined;
+  var cNearBy = undefined;
+  var cNewlyCurated = undefined;
+  var cRecommended = undefined;
+  var cTrending = undefined;
+  var cWishlist = undefined;
+
+  var User = undefined;
   var skipIt = undefined;
 
-  Collection.findCollection = function(userId, cb) {
+  var callback = undefined;
 
-    console.log(userId);
-    // load up cb only the first time
-    callback = typeof callback == 'undefined' ? cb : callback;
+  // hard limit on the amount of returning documents
+  var limitVal = 10;
 
-    Collection.getCollections(userId);
 
-  }
-
+  //
+  // FIND COLLECTION
+  //
   Collection.remoteMethod(
     'findCollection',
     {
@@ -25,40 +29,183 @@ module.exports = function(Collection) {
     }
   );
 
-  Collection.getCollections = function(userId){
+  Collection.findCollection = function(userId, cb) {
 
-    if (typeof uCollection == 'undefined') {
+    // load up cb only the first time
+    callback = typeof callback == 'undefined' ? cb : callback;
 
-      // user collections
-      Collection.getUserCollection(userId, Collection.getCollections);
+    // load up User model
+    User = typeof User == 'undefined' ? User = Collection.app.models['user'] : User;
 
-    } else if (typeof gCollection == 'undefined') {
+    // go get them
+    Collection.getCollections(userId);
 
-      // global collections
-      Collection.getGlobalCollection(Collection.getCollections);
+  };
+
+  //
+  // FIND NEWLY CURATED
+  //
+  Collection.remoteMethod(
+    'findNewlyCurated',
+    {
+      http: { path: '/newlycurated', verb: 'get'},
+      accepts: {arg: 'skip', type: 'number', http: { source: 'query'}, required: false, description:["Valid number of rows to skip"] },
+      returns: {arg: 'newlyCurated', type: 'array'}
+    }
+  );
+
+  Collection.findNewlyCurated = function(skip, cb) {
+
+    // load up cb only the first time
+    callback = typeof callback == 'undefined' ? cb : callback;
+
+    // load up skipIt only the first time
+    skipIt = typeof skipIt == 'undefined' ? skip : skipIt;
+
+    // go get them
+    if (typeof cNewlyCurated == 'undefined') {
+
+      // newly curated
+      _getcNewlyCurated(skip, Collection.findNewlyCurated);
 
     } else {
 
       // cb
-      callback(null, {user: uCollection, global: gCollection});
+      callback(null, cNewlyCurated);
 
       // clean up
-      uCollection = undefined;
-      gCollection = undefined;
-      callback = undefined;
+      cNewlyCurated = undefined;
       skipIt = undefined;
-
+      callback = undefined;
     }
-  }
 
-  Collection.getUserCollection = function(uid, cb){
+  };
 
-    //console.log(Collection.app.models);
-    var uc = Collection.app.models['user-collection'];
+  //
+  // FIND TRENDING
+  //
+  Collection.remoteMethod(
+    'findTrending',
+    {
+      http: { path: '/trending', verb: 'get'},
+      accepts: {arg: 'skip', type: 'number', http: { source: 'query'}, required: false, description:["Valid number of rows to skip"] },
+      returns: {arg: 'trending', type: 'array'}
+    }
+  );
 
-    var filter = {fields:['recommended', 'wishlist', 'nearBy'], where: { userId: uid}};
+  Collection.findTrending = function(skip, cb) {
 
-    uc.find(filter, function (err, instance){
+    // load up cb only the first time
+    callback = typeof callback == 'undefined' ? cb : callback;
+
+    // load up skipIt only the first time
+    skipIt = typeof skipIt == 'undefined' ? skip : skipIt;
+
+    // go get them
+    if (typeof cTrending == 'undefined') {
+
+      // trending
+      _getcTrending(skip, Collection.findTrending);
+
+    } else {
+
+      // cb
+      callback(null, cTrending);
+
+      // clean up
+      cTrending = undefined;
+      skipIt = undefined;
+      callback = undefined;
+    }
+
+  };
+
+  //
+  // FIND FEATURED ARTIST
+  //
+  Collection.remoteMethod(
+    'findFeaturedArtist',
+    {
+      http: { path: '/featuredartists', verb: 'get'},
+      accepts: {arg: 'skip', type: 'number', http: { source: 'query'}, required: false, description:["Valid number of rows to skip"] },
+      returns: {arg: 'featuredArtists', type: 'array'}
+    }
+  );
+
+  Collection.findFeaturedArtist = function(skip, cb) {
+
+    // load up cb only the first time
+    callback = typeof callback == 'undefined' ? cb : callback;
+
+    // load up skipIt only the first time
+    skipIt = typeof skipIt == 'undefined' ? skip : skipIt;
+
+    // go get them
+    if (typeof cFeaturedArtist == 'undefined') {
+
+      // featured artists
+      _getcFeaturedArtist(skip, Collection.findFeaturedArtist);
+
+    } else {
+
+      // cb
+      callback(null, cFeaturedArtist);
+
+      // clean up
+      cFeaturedArtist = undefined;
+      skipIt = undefined;
+      callback = undefined;
+    }
+
+  };
+
+  Collection.getCollections = function(userId){
+
+    if (typeof cRecommended == 'undefined' || typeof cNearBy == 'undefined' || typeof cWishlist == 'undefined') {
+
+        // getAllUserValues
+        _getAllUserValues(userId, Collection.getCollections);
+
+      } else if (typeof cFeaturedArtist == 'undefined') {
+
+        // featured artist
+        _getcFeaturedArtist(userId, Collection.getCollections);
+
+      } else if (typeof cTrending == 'undefined') {
+
+        // trending
+        _getcTrending(userId, Collection.getCollections);
+
+      } else if (typeof cNewlyCurated == 'undefined') {
+
+        // newly curated
+        _getcNewlyCurated(userId, Collection.getCollections);
+
+      } else {
+
+        // cb
+        callback(null, {'user': {'recommended':cRecommended, 'wishlist':cWishlist, 'nearBy':cNearBy }, 'global': {'featuredArtists': cFeaturedArtist, 'trending': cTrending, 'newlyCurated': cNewlyCurated}});
+
+        // clean up
+        cFeaturedArtist = undefined;
+        cNearBy = undefined;
+        cNewlyCurated = undefined;
+        cRecommended = undefined;
+        cTrending = undefined;
+        cWishlist = undefined;
+        User = undefined;
+        callback = undefined;
+
+      }
+  };
+
+
+  // Private methods
+  function _getAllUserValues(userId, cb) {
+
+    var filter = {limit:limitVal, include: ['Recommended', 'NearBy', 'Wishlist'] };
+
+    User.findById(userId, filter, function (err, instance){
 
       // error condition... abort.
       if (err) {
@@ -66,20 +213,26 @@ module.exports = function(Collection) {
         return callback(err);
       }
 
-      uCollection = instance;
+      cRecommended = instance.Recommended();
+      cNearBy = instance.NearBy();
+      cWishlist = instance.Wishlist();
 
-      cb(uid);
+      cb(userId);
 
     });
-  }
 
-  Collection.getGlobalCollection = function(cb){
+  };
 
-    var gc = Collection.app.models['global-collection'];
+  function _getcFeaturedArtist(userId, cb) {
 
-    var filter = {fields:['featuredArtists', 'trending', 'newlyCurated']};
+    var featuredArtist = Collection.app.models['FeaturedArtist'];
+    var filter = {limit:limitVal};
 
-    gc.find(filter, function (err, instance){
+    if (typeof skipIt != 'undefined') {
+      filter.skip = skipIt;
+    }
+
+    featuredArtist.all(filter, function (err, instance){
 
       // error condition... abort.
       if (err) {
@@ -87,11 +240,59 @@ module.exports = function(Collection) {
         return callback(err);
       }
 
-      gCollection = instance;
+      cFeaturedArtist = instance;
 
-      cb();
+      cb(userId);
 
     });
-  }
+  };
+
+  function _getcNewlyCurated(userId, cb) {
+
+    var newlyCurated = Collection.app.models['NewlyCurated'];
+    var filter = {limit:limitVal};
+
+    if (typeof skipIt != 'undefined') {
+      filter.skip = skipIt;
+    }
+
+    newlyCurated.all(filter, function (err, instance){
+
+      // error condition... abort.
+      if (err) {
+        console.log(err.message);
+        return callback(err);
+      }
+
+      cNewlyCurated = instance;
+
+      cb(userId);
+
+    });
+  };
+
+  function _getcTrending(userId, cb) {
+
+    var trending = Collection.app.models['Trending'];
+    var filter = {limit:limitVal};
+
+    if (typeof skipIt != 'undefined') {
+      filter.skip = skipIt;
+    }
+
+    trending.all(filter, function (err, instance){
+
+      // error condition... abort.
+      if (err) {
+        console.log(err.message);
+        return callback(err);
+      }
+
+      cTrending = instance;
+
+      cb(userId);
+
+    });
+  };
 
 };

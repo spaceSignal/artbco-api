@@ -18,7 +18,32 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "payment": {
+      "type": "hasMany",
+      "model": "Payment",
+      "foreignKey": "customerId"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    },
+    "addresses": {
+      "type": "hasMany",
+      "model": "Address",
+      "foreignKey": "addressId"
+    },
+    "address": {
+      "type": "embedsOne",
+      "model": "Address",
+      "property": "defaultAddress",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
   "acls": [
     {
       "accessType": "*",

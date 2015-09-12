@@ -28,6 +28,9 @@
     },
     "dateOrder": {
       "type": "date"
+    },
+    "datePickup": {
+      "type": "date"
     }
   },
   "validations": [],
@@ -37,10 +40,14 @@
       "model": "Artwork",
       "foreignKey": "orderId"
     },
-    "addresses": {
-      "type": "hasOne",
+    "address": {
+      "type": "embedsOne",
       "model": "Address",
-      "foreignKey": "addressId"
+      "property": "address",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     },
     "lease-option": {
       "type": "embedsOne",
@@ -63,7 +70,7 @@
     "customer": {
       "type": "belongsTo",
       "model": "Customer",
-      "foreignKey": "orderId"
+      "foreignKey": "customerId"
     }
   },
   "acls": [

@@ -128,10 +128,6 @@
     "$promise": {},
     "$resolved": true
   },
-  "wishlist": {
-    "dataSource": "mongodb",
-    "public": true
-  },
   "user-collection": {
     "dataSource": "mongodb",
     "public": true
@@ -141,6 +137,38 @@
     "public": true
   },
   "Collection": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Recommended": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "NearBy": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Wishlist": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "FeaturedArtist": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Trending": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "NewlyCurated": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "Payment": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "cart": {
     "dataSource": "mongodb",
     "public": true
   }
