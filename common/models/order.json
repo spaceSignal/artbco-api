@@ -37,10 +37,14 @@
       "model": "Artwork",
       "foreignKey": "orderId"
     },
-    "addresses": {
-      "type": "hasOne",
+    "address": {
+      "type": "embedsOne",
       "model": "Address",
-      "foreignKey": "addressId"
+      "property": "address",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     },
     "lease-option": {
       "type": "embedsOne",
