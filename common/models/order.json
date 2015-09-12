@@ -27,6 +27,10 @@
       ]
     },
     "dateOrder": {
+      "type": "date",
+      "required": true
+    },
+    "datePickup": {
       "type": "date"
     }
   },
