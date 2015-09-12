@@ -19,9 +19,9 @@
   },
   "validations": [],
   "relations": {
-    "orders": {
+    "payment": {
       "type": "hasMany",
-      "model": "Order",
+      "model": "Payment",
       "foreignKey": "customerId"
     },
     "user": {
