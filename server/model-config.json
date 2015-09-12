@@ -167,5 +167,9 @@
   "Payment": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "cart": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

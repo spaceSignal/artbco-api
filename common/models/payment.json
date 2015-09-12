@@ -33,9 +33,6 @@
     "exp_year": {
       "type": "number"
     },
-    "exp_month": {
-      "type": "number"
-    },
     "name": {
       "type": "string"
     }

@@ -1,0 +1,55 @@
+{
+  "name": "cart",
+  "plural": "carts",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "subtotal": {
+      "type": "number",
+      "required": true
+    },
+    "pickupTime": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "addresses": {
+      "type": "hasOne",
+      "model": "Address",
+      "foreignKey": "addressId"
+    },
+    "artworks": {
+      "type": "hasOne",
+      "model": "Artwork",
+      "foreignKey": "artworkId"
+    },
+    "payments": {
+      "type": "hasOne",
+      "model": "Payment",
+      "foreignKey": "paymentId"
+    },
+    "shippings": {
+      "type": "hasOne",
+      "model": "Shipping",
+      "foreignKey": "shippingId"
+    },
+    "lease-options": {
+      "type": "hasOne",
+      "model": "lease-option",
+      "foreignKey": "leaseOptionsId"
+    }
+  },
+  "acls": [],
+  "methods": []
+}
