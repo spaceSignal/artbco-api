@@ -1,7 +1,7 @@
 module.exports = function (Artwork) {
 
-Artwork.validatesUniquenessOf('serialNumber', {message: 'the serial number is not unique'});
-Artwork.validatesInclusionOf('status', {in: ['active', 'inactive', 'hold']});
+  Artwork.validatesUniquenessOf('serialNumber', {message: 'the serial number is not unique'});
+  Artwork.validatesInclusionOf('status', {in: ['active', 'inactive', 'hold']});
 
   // hold
   var details = undefined;
@@ -196,5 +196,65 @@ Artwork.validatesInclusionOf('status', {in: ['active', 'inactive', 'hold']});
     });
 
   };
+
+  // GEOCODING ARTWORK
+
+  // google map api call using rest connector
+  var getGeocode = require('function-rate-limit')(5, 1000, function(){
+
+    var geoService = Artwork.app.dataSources.geocode;
+    geoService.geocode.apply(geoService, arguments);
+
+  });
+
+  // call before save
+  Artwork.beforeRemote('*.updateAttributes', function(ctx, user, next){
+
+    var body = ctx.req.body;
+
+    if (
+        body                              &&
+        body.currentAddress               &&
+        body.currentAddress.addressLine   &&
+        body.currentAddress.city          &&
+        body.currentAddress.zipcode
+    ) {
+
+      // geocode
+      getGeocode(body.currentAddress.addressLine, body.currentAddress.city, body.currentAddress.zipcode, function (err, result) {
+
+        if (result && result[0]) {
+
+          body.currentAddress.geolocation = result[0];
+          next();
+
+        } else {
+
+          var errmsg = 'Geocoding attempt was not successful. ';
+          console.log(errmsg);
+
+          next(new Error(errmsg));
+
+        }
+
+      });
+
+    } else {
+
+       // information not available... cannot geocode address
+      var errmsg = 'ctx.body address information is not set. Geocoding cannot occur.';
+      console.log(errmsg);
+
+      next(new Error(errmsg));
+
+    }
+
+
+
+
+
+  });
+
+
 
 };

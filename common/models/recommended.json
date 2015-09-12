@@ -1,7 +1,7 @@
 {
   "name": "Recommended",
-  "base": "PersistedModel",
   "plural": "Recommended",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true

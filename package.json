@@ -7,9 +7,11 @@
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "errorhandler": "^1.1.1",
+    "function-rate-limit": "^1.0.1",
     "loopback": "^2.14.0",
     "loopback-boot": "^2.6.5",
     "loopback-connector-mongodb": "^1.8.0",
+    "loopback-connector-rest": "^1.10.0",
     "loopback-datasource-juggler": "^2.19.0",
     "morgan": "^1.5.3",
     "serve-favicon": "^2.0.1"
