@@ -250,11 +250,6 @@ module.exports = function (Artwork) {
     }
 
 
-
-
-
   });
-
-
 
 };

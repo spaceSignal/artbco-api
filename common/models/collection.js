@@ -8,10 +8,7 @@ module.exports = function(Collection) {
   var cTrending = undefined;
   var cWishlist = undefined;
 
-  var User = undefined;
   var skipIt = undefined;
-
-  var callback = undefined;
 
   // hard limit on the amount of returning documents
   var limitVal = 10;
@@ -31,14 +28,41 @@ module.exports = function(Collection) {
 
   Collection.findCollection = function(userId, cb) {
 
-    // load up cb only the first time
-    callback = typeof callback == 'undefined' ? cb : callback;
+    if (typeof cRecommended == 'undefined' || typeof cNearBy == 'undefined' || typeof cWishlist == 'undefined') {
 
-    // load up User model
-    User = typeof User == 'undefined' ? User = Collection.app.models['user'] : User;
+      // getAllUserValues
+      _getAllUserValues(userId, Collection.findCollection, cb);
 
-    // go get them
-    Collection.getCollections(userId);
+
+    } else if (typeof cFeaturedArtist == 'undefined') {
+
+      // featured artist
+      _getcFeaturedArtist(userId, Collection.findCollection, cb);
+
+    } else if (typeof cTrending == 'undefined') {
+
+      // trending
+      _getcTrending(userId, Collection.findCollection, cb);
+
+    } else if (typeof cNewlyCurated == 'undefined') {
+
+      // newly curated
+      _getcNewlyCurated(userId, Collection.findCollection, cb);
+
+    } else {
+
+      // cb
+      cb(null, {'user': { 'recommended':cRecommended, 'wishlist':cWishlist, 'nearBy':cNearBy }, 'global': { 'featuredArtists': cFeaturedArtist, 'trending': cTrending, 'newlyCurated': cNewlyCurated }});
+
+      // clean up
+      cFeaturedArtist = undefined;
+      cNearBy = undefined;
+      cNewlyCurated = undefined;
+      cRecommended = undefined;
+      cTrending = undefined;
+      cWishlist = undefined;
+
+    }
 
   };
 
@@ -56,27 +80,20 @@ module.exports = function(Collection) {
 
   Collection.findNewlyCurated = function(skip, cb) {
 
-    // load up cb only the first time
-    callback = typeof callback == 'undefined' ? cb : callback;
-
-    // load up skipIt only the first time
-    skipIt = typeof skipIt == 'undefined' ? skip : skipIt;
-
     // go get them
     if (typeof cNewlyCurated == 'undefined') {
 
       // newly curated
-      _getcNewlyCurated(skip, Collection.findNewlyCurated);
+      _getcNewlyCurated(skip, Collection.findNewlyCurated, cb);
 
     } else {
 
       // cb
-      callback(null, cNewlyCurated);
+      cb(null, cNewlyCurated);
 
       // clean up
       cNewlyCurated = undefined;
-      skipIt = undefined;
-      callback = undefined;
+
     }
 
   };
@@ -95,27 +112,20 @@ module.exports = function(Collection) {
 
   Collection.findTrending = function(skip, cb) {
 
-    // load up cb only the first time
-    callback = typeof callback == 'undefined' ? cb : callback;
-
-    // load up skipIt only the first time
-    skipIt = typeof skipIt == 'undefined' ? skip : skipIt;
-
     // go get them
     if (typeof cTrending == 'undefined') {
 
       // trending
-      _getcTrending(skip, Collection.findTrending);
+      _getcTrending(skip, Collection.findTrending, cb);
 
     } else {
 
       // cb
-      callback(null, cTrending);
+      cb(null, cTrending);
 
       // clean up
       cTrending = undefined;
-      skipIt = undefined;
-      callback = undefined;
+
     }
 
   };
@@ -134,78 +144,32 @@ module.exports = function(Collection) {
 
   Collection.findFeaturedArtist = function(skip, cb) {
 
-    // load up cb only the first time
-    callback = typeof callback == 'undefined' ? cb : callback;
-
-    // load up skipIt only the first time
-    skipIt = typeof skipIt == 'undefined' ? skip : skipIt;
-
     // go get them
     if (typeof cFeaturedArtist == 'undefined') {
 
       // featured artists
-      _getcFeaturedArtist(skip, Collection.findFeaturedArtist);
+      _getcFeaturedArtist(skip, Collection.findFeaturedArtist, cb);
 
     } else {
 
       // cb
-      callback(null, cFeaturedArtist);
+      cb(null, cFeaturedArtist);
 
       // clean up
       cFeaturedArtist = undefined;
-      skipIt = undefined;
-      callback = undefined;
+
     }
 
   };
 
-  Collection.getCollections = function(userId){
-
-    if (typeof cRecommended == 'undefined' || typeof cNearBy == 'undefined' || typeof cWishlist == 'undefined') {
-
-        // getAllUserValues
-        _getAllUserValues(userId, Collection.getCollections);
-
-
-      } else if (typeof cFeaturedArtist == 'undefined') {
-
-        // featured artist
-        _getcFeaturedArtist(userId, Collection.getCollections);
-
-      } else if (typeof cTrending == 'undefined') {
-
-        // trending
-        _getcTrending(userId, Collection.getCollections);
-
-      } else if (typeof cNewlyCurated == 'undefined') {
-
-        // newly curated
-        _getcNewlyCurated(userId, Collection.getCollections);
-
-
-      } else {
-
-        // cb
-        callback(null, {'user': {'recommended':cRecommended, 'wishlist':cWishlist, 'nearBy':cNearBy }, 'global': {'featuredArtists': cFeaturedArtist, 'trending': cTrending, 'newlyCurated': cNewlyCurated}});
-
-        // clean up
-        cFeaturedArtist = undefined;
-        cNearBy = undefined;
-        cNewlyCurated = undefined;
-        cRecommended = undefined;
-        cTrending = undefined;
-        cWishlist = undefined;
-        User = undefined;
-        callback = undefined;
-
-      }
-  };
-
-
-  // Private methods
-  function _getAllUserValues(userId, cb) {
+  //
+  // PRIVATE METHODS
+  //
+  function _getAllUserValues(userId, cb, callback) {
 
     var filter = {limit:limitVal, include: ['Recommended', 'NearBy', 'Wishlist'] };
+
+    var User = Collection.app.models['user'];
 
     User.findById(userId, filter, function (err, instance){
 
@@ -217,16 +181,10 @@ module.exports = function(Collection) {
 
       if (instance == null) {
 
- //       var err = new Error('id is not found.');
- //       err.statusCode = 400;
+        var err = new Error('id is not found.');
+        err.statusCode = 400;
 
-//        cb(err);
-
-        cRecommended = [];
-        cNearBy = [];
-        cWishlist = [];
-
-        cb(userId);
+        return callback(err);
 
       } else {
 
@@ -234,17 +192,15 @@ module.exports = function(Collection) {
         cNearBy = instance.NearBy();
         cWishlist = instance.Wishlist();
 
-        cb(userId);
+        cb(userId,callback);
 
       }
-
-
 
     });
 
   };
 
-  function _getcFeaturedArtist(userId, cb) {
+  function _getcFeaturedArtist(userId, cb, callback) {
 
     var featuredArtist = Collection.app.models['FeaturedArtist'];
     var filter = {limit:limitVal};
@@ -262,17 +218,17 @@ module.exports = function(Collection) {
       }
 
       if (instance == null) {
-        instance = {};
+        instance = [];
       }
 
       cFeaturedArtist = instance;
 
-      cb(userId);
+      cb(userId, callback);
 
     });
   };
 
-  function _getcNewlyCurated(userId, cb) {
+  function _getcNewlyCurated(userId, cb, callback) {
 
     var newlyCurated = Collection.app.models['NewlyCurated'];
     var filter = {limit:limitVal};
@@ -295,12 +251,12 @@ module.exports = function(Collection) {
 
       cNewlyCurated = instance;
 
-      cb(userId);
+      cb(userId, callback);
 
     });
   };
 
-  function _getcTrending(userId, cb) {
+  function _getcTrending(userId, cb, callback) {
 
     var trending = Collection.app.models['Trending'];
     var filter = {limit:limitVal};
@@ -323,7 +279,7 @@ module.exports = function(Collection) {
 
       cTrending = instance;
 
-      cb(userId);
+      cb(userId, callback);
 
     });
   };
