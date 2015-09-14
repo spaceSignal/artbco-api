@@ -166,6 +166,7 @@ module.exports = function(Collection) {
         // getAllUserValues
         _getAllUserValues(userId, Collection.getCollections);
 
+
       } else if (typeof cFeaturedArtist == 'undefined') {
 
         // featured artist
@@ -180,6 +181,7 @@ module.exports = function(Collection) {
 
         // newly curated
         _getcNewlyCurated(userId, Collection.getCollections);
+
 
       } else {
 
@@ -215,10 +217,16 @@ module.exports = function(Collection) {
 
       if (instance == null) {
 
-        var err = new Error("id is not found.");
-        err.statusCode = 400;
+ //       var err = new Error('id is not found.');
+ //       err.statusCode = 400;
 
-        callback(err);
+//        cb(err);
+
+        cRecommended = [];
+        cNearBy = [];
+        cWishlist = [];
+
+        cb(userId);
 
       } else {
 
@@ -226,9 +234,11 @@ module.exports = function(Collection) {
         cNearBy = instance.NearBy();
         cWishlist = instance.Wishlist();
 
+        cb(userId);
+
       }
 
-      cb(userId);
+
 
     });
 
@@ -317,5 +327,6 @@ module.exports = function(Collection) {
 
     });
   };
+
 
 };
