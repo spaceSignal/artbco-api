@@ -213,9 +213,20 @@ module.exports = function(Collection) {
         return callback(err);
       }
 
-      cRecommended = instance.Recommended();
-      cNearBy = instance.NearBy();
-      cWishlist = instance.Wishlist();
+      if (instance == null) {
+
+        var err = new Error("id is not found.");
+        err.statusCode = 400;
+
+        callback(err);
+
+      } else {
+
+        cRecommended = instance.Recommended();
+        cNearBy = instance.NearBy();
+        cWishlist = instance.Wishlist();
+
+      }
 
       cb(userId);
 
@@ -238,6 +249,10 @@ module.exports = function(Collection) {
       if (err) {
         console.log(err.message);
         return callback(err);
+      }
+
+      if (instance == null) {
+        instance = {};
       }
 
       cFeaturedArtist = instance;
@@ -264,6 +279,10 @@ module.exports = function(Collection) {
         return callback(err);
       }
 
+      if (instance == null) {
+        instance = {};
+      }
+
       cNewlyCurated = instance;
 
       cb(userId);
@@ -286,6 +305,10 @@ module.exports = function(Collection) {
       if (err) {
         console.log(err.message);
         return callback(err);
+      }
+
+      if (instance == null) {
+        instance = {};
       }
 
       cTrending = instance;
