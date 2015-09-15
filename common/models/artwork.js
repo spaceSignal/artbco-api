@@ -5,59 +5,51 @@ module.exports = function (Artwork) {
 
   // hold
   var details = undefined;
-  var imgs = undefined;
-  var callback = undefined;
   var sameArtist = undefined;
   var sameArt = undefined;
   var skipIt = undefined;
 
-
-  Artwork.detailView = function(artworkId, cb) {
-
-    // load up cb only the first time
-    callback = typeof callback == 'undefined' ? cb : callback;
-
-    Artwork.getDetailsImgs(artworkId);
-
-  }
-
-  Artwork.sameArt = function(artworkId, skip, cb) {
-
-    // load up cb only the first time
-    callback = typeof callback == 'undefined' ? cb : callback;
-    skipIt = typeof skipIt == 'undefined' ? skip : skipIt;
-
-    if (typeof details == 'undefined') {
-
-      // details
-      Artwork.getDetail(artworkId, Artwork.sameArt);
-
-    } else if (typeof sameArt == 'undefined') {
-
-      // images for same art
-      Artwork.getSameArt(artworkId, 's3', skipIt, Artwork.sameArt);
-
-    } else {
-
-      // cb
-      callback(null, {'sameArt': sameArt});
-
-      // clean up
-      callback = undefined;
-      skipIt = undefined;
-      sameArt = undefined;
-    }
-
-  }
+  // hard limit on the amount of returning documents
+  var limitVal = 10;
 
   Artwork.remoteMethod(
     'detailView',
     {
-        http: { path: '/detailView', verb: 'get'},
-        accepts: {arg: 'id', type: 'string', http: { source: 'query'}, required: true, description:["Valid Artwork id"] },
-        returns: {arg: 'artwork', type: 'array'}
+      http: { path: '/detailView', verb: 'get'},
+      accepts: {arg: 'id', type: 'string', http: { source: 'query'}, required: true, description:["Valid Artwork id"] },
+      returns: {arg: 'artwork', type: 'array'}
     }
   );
+
+  Artwork.detailView = function(artworkId, cb) {
+
+    if (typeof details == 'undefined') {
+
+      // details
+      Artwork.getDetail(artworkId, 's3', Artwork.detailView, cb);
+
+    } else if (typeof sameArtist == 'undefined') {
+
+      //  images for same artist
+      Artwork.getSameArtist(artworkId, 's3', Artwork.detailView, cb);
+
+    } else if (typeof sameArt == 'undefined') {
+
+      // images for same art
+      Artwork.getSameArt(artworkId, 's3', 0, Artwork.detailView, cb, true);
+
+    } else {
+
+      // cb
+      cb(null, {'details': details, 'sameArtist': sameArtist, 'sameArt': sameArt});
+
+      // clean up
+      details = undefined;
+      sameArt = undefined;
+      sameArtist = undefined;
+    }
+
+  }
 
   Artwork.remoteMethod(
     'sameArt',
@@ -71,46 +63,44 @@ module.exports = function (Artwork) {
     }
   );
 
-  Artwork.getDetailsImgs = function (artworkId) {
+  Artwork.sameArt = function(artworkId, skip, cb) {
+
+    skipIt = (typeof skipIt == 'undefined') ? skip : skipIt;
 
     if (typeof details == 'undefined') {
 
       // details
-      Artwork.getDetail(artworkId, Artwork.getDetailsImgs);
+      Artwork.getDetail(artworkId, 's3', Artwork.sameArt, cb);
 
-    } else if (typeof imgs == 'undefined') {
+    } else if (typeof sameArt == 'undefined') {
 
-      // images
-      Artwork.getImages(artworkId, 's3');
-
-    } else if (typeof sameArtist == 'undefined') {
-
-      //  images for same artist
-      Artwork.getSameArtist(artworkId, 's3');
-
-   } else if (typeof sameArt == 'undefined') {
+      cb = skip;
 
       // images for same art
-     Artwork.getSameArt(artworkId, 's3', 0, Artwork.getDetailsImgs);
+      Artwork.getSameArt(artworkId, 's3', skipIt, Artwork.sameArt, cb);
 
     } else {
 
       // cb
-      callback(null, {'details': details, 'images': imgs, 'sameArtist': sameArtist, 'sameArt': sameArt});
+      cb(null, {'sameArt': sameArt});
 
       // clean up
       details = undefined;
-      imgs = undefined;
-      callback = undefined;
       sameArt = undefined;
-      sameArtist = undefined;
+      skipIt = undefined;
     }
-  };
 
-  Artwork.getDetail = function (artworkId, cb) {
+  }
+
+
+ Artwork.getDetail = function (artworkId, size, cb, callback) {
 
     // filter/inclusion
-    var filter = {fields:['id', 'status', 'media', 'name', 'width', 'depth', 'edition', 'editionCount', 'length', 'salesPrice', 'artistId', 'galleryId']};
+   var flds = ['id', 'status', 'media', 'name', 'width', 'depth', 'edition', 'editionCount', 'length', 'salesPrice', 'artistId', 'galleryId'];
+   var rel = {relation: 'images', scope: {where: {'size': size}}};
+   var rel2 = {relation: 'artist', scope:{ fields: ['firstName', 'lastName']}};
+
+   var filter = {fields: flds, include: [rel, rel2 ]};
 
     Artwork.findById( artworkId, filter, function (err, instance){
 
@@ -120,42 +110,33 @@ module.exports = function (Artwork) {
           return callback(err);
       }
 
-      details = instance;
+      if (instance == null) {
 
-      cb(artworkId);
+        var err = new Error('id is not found.');
+        err.statusCode = 400;
 
-    });
-  };
+        return callback(err);
 
- Artwork.getImages = function (artworkId, size) {
+      } else {
 
-    var Images = Artwork.app.models.Image;
+        details = instance;
 
-    var filter = { "where": {"imageId":artworkId, "size":size} };
+        cb(artworkId, callback);
 
-    Images.find( filter, function (err, instance){
-
-      // error condition... abort.
-      if (err) {
-          console.log(err.message);
-          return callback(err);
       }
 
-      imgs = instance;
-
-      Artwork.getDetailsImgs(artworkId);
-
     });
-
   };
 
-  Artwork.getSameArtist = function (artworkId, size) {
+  Artwork.getSameArtist = function (artworkId, size, cb, callback) {
+
+    console.log(details.artistId);
 
     // abort if not available
     if (typeof details == 'undefined') return;
 
    // filter/inclusion
-    var filter = {fields:['id'], where: { artistId: details.artistId}, include:{ relation: 'images', scope : { fields:['url'], where: {'size': size} }}};
+    var filter = {limit:limitVal, fields:['id'], where: { artistId: details.artistId}, include:{ relation: 'images', scope : { fields:['url'], where: {'size': size} }}};
 
     Artwork.find( filter, function (err, instance){
 
@@ -165,21 +146,31 @@ module.exports = function (Artwork) {
           return callback(err);
       }
 
+      if (instance == null) {
+        instance = [];
+      }
+
       sameArtist = instance;
 
-      Artwork.getDetailsImgs(artworkId);
+      cb(artworkId, callback);
+
 
     });
 
   };
 
-  Artwork.getSameArt = function (artworkId, size, skipDocs, cb) {
+  Artwork.getSameArt = function (artworkId, size, skipDocs, cb, callback, onErrorArray) {
 
     // abort if not available
     if (typeof details == 'undefined') return;
 
+    // defined whether in case of error do we return an error or an empty array
+    onErrorArray = (typeof onErrorArray == 'undefined') ? false : onErrorArray ;
+
     // filter/inclusion
-    var filter = {fields:['id'], skip:skipDocs, where: { media: details.media }, include:{ relation: 'images', scope : { fields:['url'], where: {'size': size} }}, limit:4 };
+    var filter = {limit:limitVal, fields:['id'], skip:skipDocs, where: { media: details.media }, include:{ relation: 'images', scope : { fields:['url'], where: {'size': size} }} };
+
+    console.log(skipDocs);
 
     Artwork.find( filter, function (err, instance){
 
@@ -189,9 +180,27 @@ module.exports = function (Artwork) {
         return callback(err);
       }
 
-      sameArt = instance;
+      if (instance == null) {
 
-      cb(artworkId);
+        if (onErrorArray !== true) {
+          var err = new Error('id is not found.');
+          err.statusCode = 400;
+
+          return callback(err);
+
+        } else {
+
+          sameArt = [];
+          cb(artworkId, skipIt, callback);
+
+        }
+
+      } else {
+
+        sameArt = instance;
+        cb(artworkId, skipIt, callback);
+
+      }
 
     });
 
