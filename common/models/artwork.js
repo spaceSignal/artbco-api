@@ -21,12 +21,12 @@ module.exports = function (Artwork) {
     }
   );
 
-  Artwork.detailView = function(artworkId, cb) {
+  Artwork.detailView = function(artworkId, cb, size) {
 
     if (typeof details == 'undefined') {
 
       // details
-      Artwork.getDetail(artworkId, 's3', Artwork.detailView, cb);
+      Artwork.getDetail(artworkId, Artwork.detailView, cb, 's3');
 
     } else if (typeof sameArtist == 'undefined') {
 
@@ -39,6 +39,8 @@ module.exports = function (Artwork) {
       Artwork.getSameArt(artworkId, 's3', 0, Artwork.detailView, cb, true);
 
     } else {
+
+      cb = size;
 
       // cb
       cb(null, {'details': details, 'sameArtist': sameArtist, 'sameArt': sameArt});
@@ -70,7 +72,7 @@ module.exports = function (Artwork) {
     if (typeof details == 'undefined') {
 
       // details
-      Artwork.getDetail(artworkId, 's3', Artwork.sameArt, cb);
+      Artwork.getDetail(artworkId, Artwork.sameArt, cb, 's3');
 
     } else if (typeof sameArt == 'undefined') {
 
@@ -93,7 +95,7 @@ module.exports = function (Artwork) {
   }
 
 
- Artwork.getDetail = function (artworkId, size, cb, callback) {
+ Artwork.getDetail = function (artworkId, cb, callback, size) {
 
     // filter/inclusion
    var flds = ['id', 'status', 'media', 'name', 'width', 'depth', 'edition', 'editionCount', 'length', 'salesPrice', 'artistId', 'galleryId'];
@@ -129,8 +131,6 @@ module.exports = function (Artwork) {
   };
 
   Artwork.getSameArtist = function (artworkId, size, cb, callback) {
-
-    console.log(details.artistId);
 
     // abort if not available
     if (typeof details == 'undefined') return;
@@ -169,8 +169,6 @@ module.exports = function (Artwork) {
 
     // filter/inclusion
     var filter = {limit:limitVal, fields:['id'], skip:skipDocs, where: { media: details.media }, include:{ relation: 'images', scope : { fields:['url'], where: {'size': size} }} };
-
-    console.log(skipDocs);
 
     Artwork.find( filter, function (err, instance){
 
